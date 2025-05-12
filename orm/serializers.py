@@ -13,6 +13,11 @@ class PostSerializer(serializers.ModelSerializer):
                   "snippet", "category", "author",
                   "category_name", "author_username"]
 
+    def create(self, validated_data):
+        print(self.context)
+        validated_data["author"] = self.context["request"].user
+        return super().create(validated_data)
+
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
